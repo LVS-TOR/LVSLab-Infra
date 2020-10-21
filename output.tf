@@ -4,3 +4,4 @@ output vm_password {
   description = "Password setup for the VM"
   depends_on  = [azurerm_virtual_machine.compute-vm]
 }
+

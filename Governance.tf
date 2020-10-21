@@ -1,3 +1,57 @@
+
+resource "azuread_group" "global-owner" {
+  name = "LVS LAB - AZ Global - Owners"
+}
+resource "azuread_group" "global-contributor" {
+  name = "LVS LAB - AZ Global - Contributors"
+}
+
+resource "azuread_group" "security-admin" {
+  name = "LVS LAB - AZ Security - Admin"
+}
+
+##############################################################################################################
+
+data "azurerm_role_definition" "global-contributor" {
+  name = "Contributor"
+}
+
+data "azurerm_role_definition" "global-owner" {
+  name = "Owner"
+}
+
+data "azurerm_role_definition" "security-admin" {
+  name = "Security Admin"
+}
+
+##############################################################################################################
+
+
+resource "azurerm_role_assignment" "global-contributor" {
+  scope              = data.azurerm_subscription.subscription.id
+  role_definition_id = data.azurerm_role_definition.global-contributor.id
+  principal_id       = azuread_group.global-contributor.id
+}
+
+resource "azurerm_role_assignment" "global-owner" {
+  scope                = data.azurerm_subscription.subscription.id
+  role_definition_id = data.azurerm_role_definition.global-owner.id
+  principal_id       = azuread_group.global-owner.id
+}
+
+resource "azurerm_role_assignment" "security-admin" {
+  scope                = data.azurerm_subscription.subscription.id
+  role_definition_id = data.azurerm_role_definition.security-admin.id
+  principal_id       = azuread_group.security-admin.id
+}
+
+
+
+
+##############################################################################################################
+
+
+
 data "azurerm_policy_definition" "allowed-locations" {
   display_name = "Allowed locations"
 }

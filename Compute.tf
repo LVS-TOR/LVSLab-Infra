@@ -5,7 +5,6 @@ resource "azurerm_resource_group" "compute-vm" {
   tags                                  = var.tags
 }
 
-
 locals {
   vm-name = "${var.vm_name}-${random_string.random.result}"
 }
