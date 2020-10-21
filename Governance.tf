@@ -265,4 +265,3 @@ resource "azurerm_policy_assignment" "requireflowlog" {
                 azurerm_virtual_machine.compute-vm2,
   ]
 }
-There should be more than one owner assigned to your subscription
