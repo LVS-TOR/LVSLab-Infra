@@ -53,7 +53,12 @@ resource "azurerm_policy_assignment" "allowed-locations" {
       value = [var.location]
     }
   })
-
+  depends_on = [azurerm_managed_disk.compute-vm-disk4,
+                azurerm_managed_disk.compute-vm-disk3,
+                azurerm_managed_disk.compute-vm-disk2,
+                azurerm_virtual_machine.compute-vm1,
+                azurerm_virtual_machine.compute-vm2,
+  ]
 }
 
 ######################################
@@ -68,6 +73,13 @@ resource "azurerm_policy_assignment" "match-location" {
   policy_definition_id = data.azurerm_policy_definition.match-location.id
   description          = "Policy Assignment created via an Acceptance Test"
   display_name         = "Audit resource location matches resource group location"
+
+  depends_on = [azurerm_managed_disk.compute-vm-disk4,
+                azurerm_managed_disk.compute-vm-disk3,
+                azurerm_managed_disk.compute-vm-disk2,
+                azurerm_virtual_machine.compute-vm1,
+                azurerm_virtual_machine.compute-vm2,
+  ]
 }
 
 #################################################################################### Custom subscription owner roles should not exist
@@ -98,6 +110,12 @@ resource "azurerm_policy_assignment" "unattached-encrypt" {
   description          = "Policy Assignment created via an Acceptance Test"
   display_name         = "Unattached disks should be encrypted"
 
+  depends_on = [azurerm_managed_disk.compute-vm-disk4,
+                azurerm_managed_disk.compute-vm-disk3,
+                azurerm_managed_disk.compute-vm-disk2,
+                azurerm_virtual_machine.compute-vm1,
+                aurerm_virtual_machine.compute-vm2,
+  ]
 }
 
 
@@ -146,20 +164,6 @@ resource "azurerm_policy_assignment" "saservendpoint" {
   display_name         = "Storage Accounts should use a virtual network service endpoint"
 
 }
-########################################################################### SQL Server should use a virtual network service endpoint
-
-data "azurerm_policy_definition" "sqlservendpoint" {
-  display_name = "SQL Server should use a virtual network service endpoint"
-}
-
-resource "azurerm_policy_assignment" "sqlservendpoint" {
-  name                 = "SQLServiceEndpoint"
-  scope                = data.azurerm_subscription.subscription.id
-  policy_definition_id = data.azurerm_policy_definition.sqlservendpoint.id
-  description          = "Policy Assignment created via an Acceptance Test"
-  display_name         = "SQL Server should use a virtual network service endpoint"
-
-}
 
 ########################################################################### Network interfaces should disable IP forwarding
 
@@ -173,6 +177,13 @@ resource "azurerm_policy_assignment" "auditipforwarding" {
   policy_definition_id = data.azurerm_policy_definition.auditipforwarding.id
   description          = "Policy Assignment created via an Acceptance Test"
   display_name         = "Network interfaces should disable IP forwarding"
+ 
+  depends_on = [azurerm_managed_disk.compute-vm-disk4,
+                azurerm_managed_disk.compute-vm-disk3,
+                azurerm_managed_disk.compute-vm-disk2,
+                azurerm_virtual_machine.compute-vm1,
+                aurerm_virtual_machine.compute-vm2,
+  ]
 
 }
 
@@ -196,28 +207,10 @@ resource "azurerm_policy_assignment" "requiretags" {
     }
   })
 
+  depends_on = [azurerm_managed_disk.compute-vm-disk4,
+                azurerm_managed_disk.compute-vm-disk3,
+                azurerm_managed_disk.compute-vm-disk2,
+                azurerm_virtual_machine.compute-vm1,
+                aurerm_virtual_machine.compute-vm2,
+  ]
 }
-
-/*
-
-########################################################################### Inherit a tag from the resource group
-
-data "azurerm_policy_definition" "inherit-rgtags" {
-  display_name = "Inherit a tag from the resource group"
-}
-
-resource "azurerm_policy_assignment" "inherit-rgtags" {
-  for_each = local.mgmtgroups_map
-  name                 = "InheritRgTags"
-  scope                = data.azurerm_management_group.mgmtgroup[each.key].id
-  policy_definition_id = data.azurerm_policy_definition.inherit-rgtags.id
-  description          = "Policy Assignment created via an Acceptance Test"
-  display_name         = "Inherit a tag from the resource group"
-
-  parameters = jsonencode({
-    tagName = {
-      value = "Environment"
-    }
-  })
-
-}*/

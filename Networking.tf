@@ -5,6 +5,19 @@ resource "azurerm_resource_group" "vnet" {
   tags                                  = var.tags
 }
 
+
+resource "azurerm_resource_group" "networkwatcher" {
+  name     = "NetworkWatcherRG"
+  location = "WestUS2"
+}
+
+resource "azurerm_network_watcher" "networkwatcher" {
+  name                = "NetworkWatcher_westus2"
+  location            = azurerm_resource_group.networkwatcher.location
+  resource_group_name = azurerm_resource_group.networkwatcher.name
+}
+
+
 resource "azurerm_virtual_network" "vnet" {
   name                = "lvs-lab-vnet01"
   location            = azurerm_resource_group.vnet.location
@@ -67,8 +80,8 @@ resource "azurerm_network_security_group" "prod" {
 
 
 resource "azurerm_network_watcher_flow_log" "prod" {
-  network_watcher_name =  "NetworkWatcher_westus2"
-  resource_group_name  =  "NetworkWatcherRG"
+  network_watcher_name =  azurerm_network_watcher.networkwatcher.name
+  resource_group_name  =  azurerm_resource_group.networkwatcher.name
 
   network_security_group_id = azurerm_network_security_group.prod.id
   storage_account_id        = azurerm_storage_account.storage.id
@@ -106,8 +119,8 @@ resource "azurerm_network_security_group" "dev" {
 
 
 resource "azurerm_network_watcher_flow_log" "dev" {
-  network_watcher_name =  "NetworkWatcher_westus2"
-  resource_group_name  =  "NetworkWatcherRG"
+  network_watcher_name =  azurerm_network_watcher.networkwatcher.name
+  resource_group_name  =  azurerm_resource_group.networkwatcher.name
 
   network_security_group_id = azurerm_network_security_group.dev.id
   storage_account_id        = azurerm_storage_account.storage.id
@@ -134,3 +147,11 @@ resource "azurerm_subnet_network_security_group_association" "dev" {
   network_security_group_id = azurerm_network_security_group.dev.id
   }
 
+
+resource "azurerm_network_security_group" "random" {
+  name                = "demo_access-nsg"
+  location            = "eastus2"
+  resource_group_name = azurerm_resource_group.vnet.name
+
+  tags = var.tags
+}
