@@ -191,7 +191,7 @@ resource "azurerm_policy_assignment" "saservendpoint" {
                 azurerm_virtual_machine.compute-vm1,
                 azurerm_virtual_machine.compute-vm2,
   ]
-  
+
 }
 
 ########################################################################### Network interfaces should disable IP forwarding
@@ -243,3 +243,26 @@ resource "azurerm_policy_assignment" "requiretags" {
                 azurerm_virtual_machine.compute-vm2,
   ]
 }
+
+
+
+data "azurerm_policy_definition" "requireflowlog" {
+  display_name = "Flow log should be configured for every network security group"
+}
+
+
+resource "azurerm_policy_assignment" "requireflowlog" {
+  name                 = "RequireFlowlLog"
+  scope                = data.azurerm_subscription.subscription.id
+  policy_definition_id = data.azurerm_policy_definition.requiretags.id
+  description          = "Flow log should be configured for every network security group"
+  display_name         = "Require a tag on resource groups"
+
+  depends_on = [azurerm_managed_disk.compute-vm-disk4,
+                azurerm_managed_disk.compute-vm-disk3,
+                azurerm_managed_disk.compute-vm-disk2,
+                azurerm_virtual_machine.compute-vm1,
+                azurerm_virtual_machine.compute-vm2,
+  ]
+}
+There should be more than one owner assigned to your subscription
