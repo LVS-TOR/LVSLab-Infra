@@ -95,6 +95,13 @@ resource "azurerm_policy_assignment" "no-custom-owner" {
   description          = "Policy Assignment created via an Acceptance Test"
   display_name         = "Custom subscription owner roles should not exist"
 
+  depends_on = [azurerm_managed_disk.compute-vm-disk4,
+                azurerm_managed_disk.compute-vm-disk3,
+                azurerm_managed_disk.compute-vm-disk2,
+                azurerm_virtual_machine.compute-vm1,
+                azurerm_virtual_machine.compute-vm2,
+  ]
+
 }
 
 ####################################################################################### Unattached disks should be encrypted
@@ -114,8 +121,9 @@ resource "azurerm_policy_assignment" "unattached-encrypt" {
                 azurerm_managed_disk.compute-vm-disk3,
                 azurerm_managed_disk.compute-vm-disk2,
                 azurerm_virtual_machine.compute-vm1,
-                aurerm_virtual_machine.compute-vm2,
+                azurerm_virtual_machine.compute-vm2,
   ]
+  
 }
 
 
@@ -131,6 +139,13 @@ resource "azurerm_policy_assignment" "kvaultservendpoint" {
   policy_definition_id = data.azurerm_policy_definition.kvaultservendpoint.id
   description          = "Policy Assignment created via an Acceptance Test"
   display_name         = "Key Vault should use a virtual network service endpoint"
+
+  depends_on = [azurerm_managed_disk.compute-vm-disk4,
+                azurerm_managed_disk.compute-vm-disk3,
+                azurerm_managed_disk.compute-vm-disk2,
+                azurerm_virtual_machine.compute-vm1,
+                azurerm_virtual_machine.compute-vm2,
+  ]
 
 }
 
@@ -148,6 +163,13 @@ resource "azurerm_policy_assignment" "nopublicip" {
   description          = "Policy Assignment created via an Acceptance Test"
   display_name         = "Network interfaces should not have public IPs"
 
+  depends_on = [azurerm_managed_disk.compute-vm-disk4,
+                azurerm_managed_disk.compute-vm-disk3,
+                azurerm_managed_disk.compute-vm-disk2,
+                azurerm_virtual_machine.compute-vm1,
+                azurerm_virtual_machine.compute-vm2,
+  ]
+
 }
 
 ########################################################################### Storage Accounts should use a virtual network service endpoint
@@ -163,6 +185,13 @@ resource "azurerm_policy_assignment" "saservendpoint" {
   description          = "Policy Assignment created via an Acceptance Test"
   display_name         = "Storage Accounts should use a virtual network service endpoint"
 
+  depends_on = [azurerm_managed_disk.compute-vm-disk4,
+                azurerm_managed_disk.compute-vm-disk3,
+                azurerm_managed_disk.compute-vm-disk2,
+                azurerm_virtual_machine.compute-vm1,
+                azurerm_virtual_machine.compute-vm2,
+  ]
+  
 }
 
 ########################################################################### Network interfaces should disable IP forwarding
@@ -182,7 +211,7 @@ resource "azurerm_policy_assignment" "auditipforwarding" {
                 azurerm_managed_disk.compute-vm-disk3,
                 azurerm_managed_disk.compute-vm-disk2,
                 azurerm_virtual_machine.compute-vm1,
-                aurerm_virtual_machine.compute-vm2,
+                azurerm_virtual_machine.compute-vm2,
   ]
 
 }
@@ -211,6 +240,6 @@ resource "azurerm_policy_assignment" "requiretags" {
                 azurerm_managed_disk.compute-vm-disk3,
                 azurerm_managed_disk.compute-vm-disk2,
                 azurerm_virtual_machine.compute-vm1,
-                aurerm_virtual_machine.compute-vm2,
+                azurerm_virtual_machine.compute-vm2,
   ]
 }
