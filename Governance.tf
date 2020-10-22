@@ -254,9 +254,9 @@ data "azurerm_policy_definition" "requireflowlog" {
 resource "azurerm_policy_assignment" "requireflowlog" {
   name                 = "RequireFlowlLog"
   scope                = data.azurerm_subscription.subscription.id
-  policy_definition_id = data.azurerm_policy_definition.requiretags.id
+  policy_definition_id = data.azurerm_policy_definition.requireflowlog.id
   description          = "Flow log should be configured for every network security group"
-  display_name         = "Require a tag on resource groups"
+  display_name         = "Flow log should be configured for every network security group"
 
   depends_on = [azurerm_managed_disk.compute-vm-disk4,
                 azurerm_managed_disk.compute-vm-disk3,

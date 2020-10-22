@@ -56,6 +56,8 @@ resource "azurerm_storage_account" "storage" {
       virtual_network_subnet_ids = [azurerm_subnet.prod.id]
     }
 
+  depends_on = [azurerm_virtual_network.vnet]
+  
   tags = var.tags
 }
 
@@ -71,6 +73,8 @@ resource "azurerm_private_endpoint" "storage" {
     is_manual_connection              = false
     subresource_names                 = ["blob"]
   }
+
+  depends_on = [azurerm_virtual_network.vnet]
 }
 
 resource "azurerm_key_vault" "security" {

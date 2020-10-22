@@ -173,7 +173,7 @@ resource "azurerm_network_interface" "compute-vm2" {
 }
 
 resource "azurerm_network_security_group" "compute-vm2" {
-    name                = "${local.vm-name2}-nic0"
+    name                = "${local.vm-name2}-nsg"
     location            = azurerm_resource_group.compute-vm.location
     resource_group_name = azurerm_resource_group.compute-vm.name
 
@@ -186,7 +186,7 @@ resource "azurerm_network_security_group" "compute-vm2" {
         protocol                   = "Tcp"
         source_port_range          = "*"
         destination_port_range     = "3389"
-        source_address_prefix      = chomp(data.http.myip.body)
+        source_address_prefix      = "*"
         destination_address_prefix = "*"
     }
 }
@@ -205,9 +205,9 @@ resource "azurerm_public_ip" "compute-vm2" {
 
 resource "azurerm_virtual_machine" "compute-vm2" {
   name                                  = local.vm-name2
-  location                              = "eastus2"
+  location                              = azurerm_resource_group.compute-vm.location
   resource_group_name                   = azurerm_resource_group.compute-vm.name
-  network_interface_ids                 = [azurerm_network_interface.compute-vm1.id]
+  network_interface_ids                 = [azurerm_network_interface.compute-vm2.id]
   vm_size                               = "Standard_B2ms"
 
   storage_image_reference {

@@ -16,7 +16,7 @@ provider "azurerm" {
 provider "azurerm" {
   version  = "~>2.20.0"
   alias = "shared"
-  subscription_id = "8ba15d1f-4cf7-4792-b953-707d3b7fe12d"
+  subscription_id = var.subscription_id
   features {}
   skip_provider_registration = "false"
 }
@@ -30,11 +30,6 @@ resource "random_string" "random" {
 
 resource "random_password" "password" {
   length = 16
-  special = true
-  override_special = "_%@"
-}
-
-
-data "http" "myip" {
-  url = "https://api.ipify.org/"
+  special = false
+  #override_special = "|_%@"
 }

@@ -16,3 +16,8 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable subscription_id {
+  type        = string
+  description = "The ID for the Azure subscription where the LAB infrastructure will be deployed to"
+}
