@@ -239,7 +239,7 @@ resource "azurerm_virtual_machine" "compute-vm2" {
 
 
 resource "azurerm_managed_disk" "compute-vm2" {
-  name = "${azurerm_virtual_machine.compute-vm1.name}-disk-02"
+  name = "${azurerm_virtual_machine.compute-vm2.name}-disk-02"
   location = azurerm_resource_group.compute-vm.location
   resource_group_name = azurerm_resource_group.compute-vm.name
   storage_account_type = "Standard_LRS"
