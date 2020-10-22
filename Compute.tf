@@ -152,13 +152,6 @@ resource "azurerm_network_interface" "compute-vm-random2" {
 
 
 
-
-#######
-
-#Vm2
-
-
-
 resource "azurerm_network_interface" "compute-vm2" {
   name                                  = "${local.vm-name2}-nic0"
   location                              = azurerm_resource_group.compute-vm.location
@@ -197,7 +190,7 @@ resource "azurerm_network_interface_security_group_association" "compute-vm2" {
 }
 
 resource "azurerm_public_ip" "compute-vm2" {
-  name                = "acceptanceTestPublicIp1"
+  name                = "${local.vm-name2}-pip"
   resource_group_name = azurerm_resource_group.compute-vm.name
   location            = azurerm_resource_group.compute-vm.location
   allocation_method   = "Static"
@@ -245,4 +238,21 @@ resource "azurerm_managed_disk" "compute-vm2" {
   storage_account_type = "Standard_LRS"
   create_option = "Empty"
   disk_size_gb = 127
+}
+
+
+resource "azurerm_public_ip" "compute-pip1" {
+  name                = "${local.vm-name1}-pip"
+  resource_group_name = azurerm_resource_group.compute-vm.name
+  location            = azurerm_resource_group.compute-vm.location
+  allocation_method   = "Static"
+}
+
+
+
+resource "azurerm_public_ip" "compute-pip2" {
+  name                = "demo02-pip"
+  resource_group_name = azurerm_resource_group.compute-vm.name
+  location            = azurerm_resource_group.compute-vm.location
+  allocation_method   = "Static"
 }
