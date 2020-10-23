@@ -2,7 +2,6 @@ resource "azurerm_resource_group" "compute-vm" {
   name                                  = "lvs-lab-compute-rg"
   location                              = var.location
 
-  tags                                  = var.tags
 }
 
 locals {
