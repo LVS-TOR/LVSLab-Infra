@@ -58,6 +58,11 @@ resource "azurerm_storage_account" "storage" {
 
   depends_on = [azurerm_virtual_network.vnet]
   
+  timeouts {
+    create = "60m"
+    delete = "30m"
+  }
+  
   tags = var.tags
 }
 
@@ -75,6 +80,11 @@ resource "azurerm_private_endpoint" "storage" {
   }
 
   depends_on = [azurerm_virtual_network.vnet]
+  
+ timeouts {
+    create = "60m"
+    delete = "30m"
+  }
 }
 
 resource "azurerm_key_vault" "security" {
