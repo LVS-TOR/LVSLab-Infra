@@ -30,8 +30,11 @@ Governance:
 ## Azure AD Groups:
 
 >LVS LAB - AZ Global - Contributors
+
 >LVS LAB - AZ Global - Owners
+
 >LVS LAB - AZ Security - Admin
+
 **Note:** the groups will be associated with the susbsciption based on their role.
 
 
@@ -39,16 +42,23 @@ Governance:
 
 ### lvs-lab-network-rg
 >Virtual Network
+
 >NSGs
 
 ### lvs-lab-infra-rg
 >Log Analytics
+
 >Storage Account + Private Endpoint
+
 >Key Vault
 
 ### lvs-lab-compute-rg
 >2x Virtual Machines - (SKU B2ms)
+
 >Managed Disks
+
 >Public IPs
+
 >Network Adaptors
+
 >NSGs
