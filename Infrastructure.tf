@@ -56,7 +56,9 @@ resource "azurerm_storage_account" "storage" {
       virtual_network_subnet_ids = [azurerm_subnet.prod.id]
     }
 
-  depends_on = [azurerm_virtual_network.vnet]
+  depends_on = [azurerm_virtual_network.vnet,
+                azurerm_virtual_machine.compute-vm1,
+                azurerm_virtual_machine.compute-vm2]
   
   timeouts {
     create = "60m"
@@ -79,8 +81,10 @@ resource "azurerm_private_endpoint" "storage" {
     subresource_names                 = ["blob"]
   }
 
-  depends_on = [azurerm_virtual_network.vnet]
-  
+  depends_on = [azurerm_virtual_network.vnet,
+                azurerm_virtual_machine.compute-vm1,
+                azurerm_virtual_machine.compute-vm2]
+ 
  timeouts {
     create = "60m"
     delete = "30m"
