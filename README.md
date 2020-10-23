@@ -2,9 +2,9 @@
 
 The script will deploy the following devices:
 
-Governance: 
+## Governance: 
 
-## Azure Policy:
+### Azure Policy:
 
 >Unattached disks should be encrypted
 
