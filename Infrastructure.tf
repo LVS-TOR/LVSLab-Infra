@@ -5,9 +5,8 @@ resource "azurerm_resource_group" "infra" {
   tags                                  = var.tags
 }
 
-
 resource "azurerm_log_analytics_workspace" "monitoring" {
-  name                = "lvs-lab-la01"
+  name                = "lvs-lab-${random_string.random.result}-la01"
   resource_group_name = azurerm_resource_group.infra.name
   location            = azurerm_resource_group.infra.location
   sku                 = "pergb2018"
@@ -18,7 +17,7 @@ resource "azurerm_log_analytics_workspace" "monitoring" {
 
 
 resource "azurerm_automation_account" "monitoring" {
-  name                = "lvs-lab-aa01"
+  name                = "lvs-lab-${random_string.random.result}-aa01"
   resource_group_name = azurerm_resource_group.infra.name
   location            = azurerm_resource_group.infra.location
   
@@ -92,7 +91,7 @@ resource "azurerm_private_endpoint" "storage" {
 }
 
 resource "azurerm_key_vault" "security" {
-  name                = lower("lvs-lab-kv01")
+  name                = lower("lvs-lab-${random_string.random.result}-kv01")
   location            = azurerm_resource_group.infra.location
   resource_group_name = azurerm_resource_group.infra.name
   tenant_id           = data.azurerm_client_config.current.tenant_id
