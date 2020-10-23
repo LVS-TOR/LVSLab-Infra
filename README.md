@@ -1,6 +1,15 @@
 # LVS LAB Infrastructure
 
-The script will deploy the following devices:
+## Requirements
+
+- Create a new Azure Active Directory tenant.
+Instructions: https://docs.microsoft.com/en-us/azure/active-directory/fundamentals/active-directory-access-create-new-tenant
+- Change the Visual Studio Enterprise Subscription – MPN Azure subscription to the new tenant.
+Instructions: https://docs.microsoft.com/en-us/azure/active-directory/fundamentals/active-directory-how-subscriptions-associated-directory#associate-a-subscription-to-a-directory
+- NetworkWatcherRG resource should be removed from the envionment before running the script.
+
+
+**The script will deploy the following devices:
 
 ## Governance: 
 
