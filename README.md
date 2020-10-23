@@ -27,7 +27,7 @@ The script will deploy the following devices:
 >Allowed locations
 
 
-## Azure AD Groups:
+### Azure AD Groups:
 
 >LVS LAB - AZ Global - Contributors
 
