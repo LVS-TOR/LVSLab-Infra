@@ -7,14 +7,23 @@ Governance:
 ## Azure Policy:
 
 >Unattached disks should be encrypted
+
 >Storage Accounts should use a virtual network service endpoint
+
 >Require a tag on resource groups
+
 >Network interfaces should not have public IPs
+
 >Network interfaces should disable IP forwarding
+
 >Key Vault should use a virtual network service endpoint
+
 >Flow log should be configured for every network security group
+
 >Custom subscription owner roles should not exist
+
 >Audit resource location matches resource group location
+
 >Allowed locations
 
 
