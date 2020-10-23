@@ -14,7 +14,7 @@ variable location {
 variable "tags" {
   description = "Tags to apply to all resources created."
   type        = map(string)
-  default     = {}
+  default     = {Environment = "Lab"}
 }
 
 variable subscription_id {
