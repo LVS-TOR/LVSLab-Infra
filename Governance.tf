@@ -241,6 +241,7 @@ resource "azurerm_policy_assignment" "requiretags" {
                 azurerm_managed_disk.compute-vm-disk2,
                 azurerm_virtual_machine.compute-vm1,
                 azurerm_virtual_machine.compute-vm2,
+                azurerm_network_watcher.networkwatcher,
   ]
 }
 
